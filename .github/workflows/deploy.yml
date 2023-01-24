@@ -10,7 +10,9 @@ env:
   GKE_CLUSTER: simple-cluster
   GKE_ZONE: europe-north1-a
   DEPLOYMENT_NAME: test-k8s
-  IMAGE: charkasau/simple-api:$GITHUB_SHA
+  SHA: $(git rev-parse HEAD)
+  IMAGE: charkasau/simple-api:$SHA
+  CLOUDSDK_CORE_DISABLE_PROMPTS: 1
 
 jobs:
   setup-build-publish-deploy:
@@ -40,18 +42,15 @@ jobs:
           gcloud container clusters get-credentials "simple-cluster" --region=europe-north1-a
 
       - name: Build
-        run: docker build -t charkasau/simple-api -t charkasau/simple-api:$GITHUB_SHA .
+        run: docker build -t charkasau/simple-api -t charkasau/simple-api:$SHA .
 
       - name: Publish
         run: |
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           docker push charkasau/simple-api:latest
-          docker push charkasau/simple-api:$GITHUB_SHA
+          docker push charkasau/simple-api:$SHA
 
       - name: Deploy
-        uses: 'google-github-actions/auth@v1'
-        with:
-          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
         run: |
           curl https://sdk.cloud.google.com | bash > /dev/null;
           source $HOME/google-cloud-sdk/path.bash.inc
