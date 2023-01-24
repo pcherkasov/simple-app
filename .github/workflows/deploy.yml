@@ -39,7 +39,7 @@ jobs:
 
       - name: Publish
         run: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        run: docker push charkasau/simple-api:$GITHUB_SHA
+             docker push charkasau/simple-api:$GITHUB_SHA
 
       - name: Deploy
         run: kubectl apply -f k8s
