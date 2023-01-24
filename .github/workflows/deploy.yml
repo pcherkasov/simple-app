@@ -50,6 +50,7 @@ jobs:
 
       - name: Deploy
         run: |
+          source $HOME/google-cloud-sdk/path.bash.inc
           gcloud components update kubectl
           gcloud container clusters get-credentials "simple-cluster" --region=europe-north1-a
           kubectl apply -f k8s
