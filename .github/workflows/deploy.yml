@@ -49,3 +49,4 @@ jobs:
           gcloud components update kubectl
           gcloud container clusters get-credentials "simple-cluster" --region=europe-north1-a
           kubectl apply -f k8s
+          kubectl set image deployments/simple-api-deployment simple-api=charkasau/simple-api:$GITHUB_SHA
