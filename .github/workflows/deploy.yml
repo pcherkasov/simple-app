@@ -11,7 +11,6 @@ env:
   GKE_ZONE: europe-north1-a
   DEPLOYMENT_NAME: test-k8s
   IMAGE: charkasau/simple-api:$GITHUB_SHA
-  CLOUDSDK_CORE_DISABLE_PROMPTS: 1
 
 jobs:
   setup-build-publish-deploy:
