@@ -11,6 +11,6 @@ public class PingController {
 
     @GetMapping
     public ResponseEntity<String> getPing() {
-        return ResponseEntity.ok("API is alive!");
+        return ResponseEntity.ok("API is still alive!");
     }
 }
