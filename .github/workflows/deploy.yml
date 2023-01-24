@@ -34,7 +34,7 @@ jobs:
       - name: Prepare config
         run: gcloud container clusters get-credentials "simple-cluster" --region=europe-north1-a
       - name: Prepare gplugin
-        run: sudo apt-get install google-cloud-sdk-gke-gcloud-auth-plugin
+        run: gcloud components install gke-gcloud-auth-plugin
 
       - name: Build
         run: docker build -t charkasau/simple-api -t charkasau/simple-api:$GITHUB_SHA .
