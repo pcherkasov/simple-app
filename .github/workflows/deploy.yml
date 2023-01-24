@@ -35,9 +35,12 @@ jobs:
         run: docker build -t charkasau/simple-api -t charkasau/simple-api:$GITHUB_SHA .
 
       - name: Docker log in
-      - run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-      - run: docker push charkasau/simple-api:latest
-      - run: docker push charkasau/simple-api:$GITHUB_SHA
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Push latest
+        run: docker push charkasau/simple-api:latest
+      - name: Push sha
+        run: docker push charkasau/simple-api:$GITHUB_SHA
 
       - name: Deploy
         run: kubectl apply -f k8s
