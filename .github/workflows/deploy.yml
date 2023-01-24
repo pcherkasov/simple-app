@@ -37,7 +37,6 @@ jobs:
           source $HOME/google-cloud-sdk/path.bash.inc
           gcloud components update kubectl
           gcloud container clusters get-credentials "simple-cluster" --region=europe-north1-a
-          sudo apt-get install google-cloud-sdk-gke-gcloud-auth-plugin
 
       - name: Build
         run: docker build -t charkasau/simple-api -t charkasau/simple-api:$GITHUB_SHA .
