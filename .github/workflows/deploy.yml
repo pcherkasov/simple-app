@@ -14,7 +14,7 @@ env:
 
 jobs:
   setup-build-publish-deploy:
-    name: Setup, Build, Publish, and Deploy
+    name: Deploy
     runs-on: ubuntu-latest
     environment: dev
 
@@ -26,7 +26,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Publish
+      - name: Build and Publish
         run: |
           SHA=$(git rev-parse HEAD)
           docker build -t charkasau/simple-api -t charkasau/simple-api:$SHA .
