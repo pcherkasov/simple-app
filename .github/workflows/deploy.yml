@@ -32,18 +32,12 @@ jobs:
         with:
           credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
-      - name: Set up Cloud SDK
-          uses: google-github-actions/setup-gcloud@v1
-
-      - run: |
-          gcloud container clusters get-credentials "$GKE_CLUSTER" --zone "$GKE_ZONE"
-
-#      - name: Prepare config
-#        run: |
-#          curl https://sdk.cloud.google.com | bash > /dev/null;
-#          source $HOME/google-cloud-sdk/path.bash.inc
-#          gcloud components update kubectl
-#          gcloud container clusters get-credentials "simple-cluster" --region=europe-north1-a
+      - name: Prepare config
+        run: |
+          curl https://sdk.cloud.google.com | bash > /dev/null;
+          source $HOME/google-cloud-sdk/path.bash.inc
+          gcloud components update kubectl
+          gcloud container clusters get-credentials "simple-cluster" --region=europe-north1-a
 
       - name: Build
         run: docker build -t charkasau/simple-api -t charkasau/simple-api:$GITHUB_SHA .
