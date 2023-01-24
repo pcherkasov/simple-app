@@ -31,6 +31,9 @@ jobs:
         with:
           credentials_json: ${{ secrets.GCP_CREDENTIALS }}
 
+      - name: Prepare
+        run: gcloud container clusters get-credentials simple-cluster
+
       - name: Build
         run: docker build -t charkasau/simple-api -t charkasau/simple-api:$GITHUB_SHA .
 
