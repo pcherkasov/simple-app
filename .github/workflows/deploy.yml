@@ -26,13 +26,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Build
+      - name: Publish
         run: |
           SHA=$(git rev-parse HEAD)
           docker build -t charkasau/simple-api -t charkasau/simple-api:$SHA .
-
-      - name: Publish
-        run: |
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           docker push charkasau/simple-api:latest
           docker push charkasau/simple-api:$SHA
@@ -45,6 +42,7 @@ jobs:
 
       - name: Deploy
         run: |
+          SHA=$(git rev-parse HEAD)
           curl https://sdk.cloud.google.com | bash > /dev/null;
           source $HOME/google-cloud-sdk/path.bash.inc
           gcloud components update kubectl
